@@ -11,13 +11,9 @@ import CoreData
 
 struct gameOptions {
     
-    var width: Int32 = 20
-    var height: Int32 = 20
-    var words: Int32 = 10
-    var minLength: Int32 = 4
-    var maxLength: Int32 = 8
+    var settings: [(name: String, value: Int32)] = []
     var capabilities: [(name: String, used: Bool)] = []
-    
+
 }
 
 
@@ -40,11 +36,14 @@ class ViewController: UITableViewController,NSFetchedResultsControllerDelegate,A
         super.viewDidLoad()
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
-        
-        // Set initial state of 'New Game' button to be disabled
         newGameButton.enabled = false
         
         gameOption = gameOptions()
+        gameOption.settings += [(name: "Width", value: 20)]
+        gameOption.settings += [(name: "Heigth", value: 20)]
+        gameOption.settings += [(name: "Words", value: 10)]
+        gameOption.settings += [(name: "Min Length", value: 4)]
+        gameOption.settings += [(name: "Max Length", value: 8)]
         
         let url = "polar-savannah-54119.herokuapp.com/capabilities"
         apidata = APIData(request: url, delegate: self)
@@ -107,6 +106,7 @@ class ViewController: UITableViewController,NSFetchedResultsControllerDelegate,A
         
         if let indexPath = self.tableView.indexPathForSelectedRow {
             self.currentGame = self.fetchedResultsController.objectAtIndexPath(indexPath) as! Game
+            performSegueWithIdentifier("showPlayGame", sender: self)
         }
     }
     

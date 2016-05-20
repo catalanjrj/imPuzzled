@@ -14,8 +14,7 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     var gameOption: gameOptions!
     var game: Game?
     var managedObjectContext: NSManagedObjectContext!
-    
-    var fieldDict: [(name: String, value: Int32)] = []
+
 
     
     //
@@ -24,14 +23,6 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     //
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        fieldDict += [(name:"Width", value:gameOption.width)]
-        fieldDict += [(name:"Height", value:gameOption.height)]
-        fieldDict += [(name:"Words", value:gameOption.words)]
-        fieldDict += [(name:"Min Length", value:gameOption.minLength)]
-        fieldDict += [(name:"Max Length", value:gameOption.maxLength)]
-    
-  
     }
 
 
@@ -55,7 +46,7 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return fieldDict.count
+            return gameOption.settings.count
         }
         else {
             return gameOption.capabilities.count
@@ -76,8 +67,8 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         if indexPath.section == 0 {
            let cell = tableView.dequeueReusableCellWithIdentifier("fieldCell", forIndexPath: indexPath) as! FieldCell
             
-            cell.fieldType.text = fieldDict[indexPath.row].name
-            let svalue = "\(fieldDict[indexPath.row].value)"
+            cell.fieldType.text = gameOption.settings[indexPath.row].name
+            let svalue = "\(gameOption.settings[indexPath.row].value)"
             cell.fieldValue.placeholder = svalue
             cell.fieldValue.keyboardType = .NumberPad
             cell.fieldValue.tag = indexPath.row
@@ -101,9 +92,14 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
      
     }
     
+    //
+    //  save new value in game options
+    //
     func textFieldShouldEndEditing(textField: UITextField) -> Bool {
         
-        
+        if let newInt = Int32(textField.text!) {
+            gameOption.settings[textField.tag].value = newInt
+        }
         
         return true
     }
@@ -142,6 +138,10 @@ class NewGameViewController: UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    
+    //
+    //  create a new game and unwind the seque
+    //
     @IBAction func playButtonPushed(sender: AnyObject) {
         
         let entity = NSEntityDescription.entityForName("Game", inManagedObjectContext: self.managedObjectContext)
