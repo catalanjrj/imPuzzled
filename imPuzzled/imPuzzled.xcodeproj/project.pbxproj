@@ -19,6 +19,8 @@
 		E37EC2801CEBE7F500C2E0EE /* Game+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37EC27E1CEBE7F500C2E0EE /* Game+CoreDataProperties.swift */; };
 		E37EC2811CEBE7F500C2E0EE /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37EC27F1CEBE7F500C2E0EE /* Game.swift */; };
 		E37EC2A61CEC2ABB00C2E0EE /* PlayGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37EC2A51CEC2ABB00C2E0EE /* PlayGameViewController.swift */; };
+		E3A960831CEFFA9C00D97F89 /* WordsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A960821CEFFA9C00D97F89 /* WordsTableViewController.swift */; };
+		E3A960851CEFFED300D97F89 /* PlayGameTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3A960841CEFFED300D97F89 /* PlayGameTabViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		E37EC27E1CEBE7F500C2E0EE /* Game+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Game+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		E37EC27F1CEBE7F500C2E0EE /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		E37EC2A51CEC2ABB00C2E0EE /* PlayGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayGameViewController.swift; sourceTree = "<group>"; };
+		E3A960821CEFFA9C00D97F89 /* WordsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordsTableViewController.swift; sourceTree = "<group>"; };
+		E3A960841CEFFED300D97F89 /* PlayGameTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayGameTabViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				E37EC21C1CEBAE7B00C2E0EE /* APIData.swift */,
+				E3A960841CEFFED300D97F89 /* PlayGameTabViewController.swift */,
 				E37EC2231CEBB6D200C2E0EE /* FieldCell.swift */,
+				E3A960821CEFFA9C00D97F89 /* WordsTableViewController.swift */,
 				E37EC2A51CEC2ABB00C2E0EE /* PlayGameViewController.swift */,
 				E37EC21E1CEBAEC800C2E0EE /* NewGameViewController.swift */,
 				CCDFA7161CEB7654008D6258 /* ViewController.swift */,
@@ -158,8 +164,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E37EC2801CEBE7F500C2E0EE /* Game+CoreDataProperties.swift in Sources */,
+				E3A960851CEFFED300D97F89 /* PlayGameTabViewController.swift in Sources */,
 				E37EC2241CEBB6D200C2E0EE /* FieldCell.swift in Sources */,
 				E37EC2A61CEC2ABB00C2E0EE /* PlayGameViewController.swift in Sources */,
+				E3A960831CEFFA9C00D97F89 /* WordsTableViewController.swift in Sources */,
 				E37EC21D1CEBAE7B00C2E0EE /* APIData.swift in Sources */,
 				CCDFA71D1CEB7654008D6258 /* imPuzzled.xcdatamodeld in Sources */,
 				E37EC21F1CEBAEC800C2E0EE /* NewGameViewController.swift in Sources */,

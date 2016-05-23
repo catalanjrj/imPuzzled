@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dn9-ao-Oi9">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dn9-ao-Oi9">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -47,6 +47,7 @@
                             <constraint firstItem="VZb-03-Lnl" firstAttribute="centerX" secondItem="zB7-9w-tpc" secondAttribute="centerX" id="o5S-WS-Czh"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JTX-sg-R4H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -55,7 +56,7 @@
         <!--i'mPuzzled-->
         <scene sceneID="aVd-bd-mvx">
             <objects>
-                <tableViewController title="i'mPuzzled" id="78s-yo-TaI" customClass="ViewController" customModule="imPuzzled" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="78s-yo-TaI" customClass="ViewController" customModule="imPuzzled" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="LwD-gd-eg1">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,17 +98,35 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="newGameButton" destination="5v7-jZ-kF5" id="nLe-Cl-EAk"/>
-                        <segue destination="MRa-UO-bVG" kind="show" identifier="showPlayGame" id="BhX-cb-YOd"/>
+                        <segue destination="LnP-IT-RWG" kind="show" identifier="showPlayGame" id="sxR-Pf-WiP"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EEk-eb-JSg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="887" y="271"/>
         </scene>
-        <!--i'mPuzzled-->
+        <!--Play Game Tab View Controller-->
+        <scene sceneID="hlI-5P-Wal">
+            <objects>
+                <tabBarController id="LnP-IT-RWG" customClass="PlayGameTabViewController" customModule="imPuzzled" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="PWV-SB-dSp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="MRa-UO-bVG" kind="relationship" relationship="viewControllers" id="1S1-Ru-S0S"/>
+                        <segue destination="fH4-GY-JJx" kind="relationship" relationship="viewControllers" id="v0s-eX-z0h"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VJ0-s2-5Y2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-530" y="1378"/>
+        </scene>
+        <!--Game-->
         <scene sceneID="nwM-V1-6ND">
             <objects>
-                <viewController title="i'mPuzzled" id="MRa-UO-bVG" customClass="PlayGameViewController" customModule="imPuzzled" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="MRa-UO-bVG" customClass="PlayGameViewController" customModule="imPuzzled" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="D4q-3d-YeR"/>
                         <viewControllerLayoutGuide type="bottom" id="jid-Cw-3HD"/>
@@ -121,6 +140,7 @@
                             <outletCollection property="gestureRecognizers" destination="Sfq-tQ-qKU" appends="YES" id="Ihe-Sv-g8R"/>
                         </connections>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Game" id="SV4-1h-ZF7"/>
                     <connections>
                         <outlet property="recognizer" destination="Sfq-tQ-qKU" id="I8b-Xx-0SM"/>
                     </connections>
@@ -132,7 +152,36 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="983" y="995"/>
+            <point key="canvasLocation" x="942" y="1080"/>
+        </scene>
+        <!--Words-->
+        <scene sceneID="pXc-kj-7h1">
+            <objects>
+                <tableViewController id="fH4-GY-JJx" customClass="WordsTableViewController" customModule="imPuzzled" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="atK-Co-QYY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="Uq8-Uc-R4P">
+                                <rect key="frame" x="0.0" y="122" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Uq8-Uc-R4P" id="Sge-qh-Rce">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fH4-GY-JJx" id="TEi-p9-FMq"/>
+                            <outlet property="delegate" destination="fH4-GY-JJx" id="EgF-gF-cPD"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Words" id="BF4-uc-71n"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nhK-a1-89d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="249" y="1766"/>
         </scene>
         <!--Settings-->
         <scene sceneID="WJW-Vo-LNM">
@@ -191,17 +240,28 @@
                                             <outlet property="fieldValue" destination="AfC-yc-RHV" id="rHS-RF-wdu"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="capabilityCell" textLabel="CcF-Y0-qor" style="IBUITableViewCellStyleDefault" id="rrQ-qx-Vdt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="capabilityCell" textLabel="CcF-Y0-qor" detailTextLabel="SSK-JF-9fY" style="IBUITableViewCellStyleValue2" id="rrQ-qx-Vdt">
                                         <rect key="frame" x="0.0" y="187.5" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rrQ-qx-Vdt" id="Nh6-cc-Jwh">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CcF-Y0-qor">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CcF-Y0-qor">
+                                                    <rect key="frame" x="15" y="15" width="91" height="14.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="SSK-JF-9fY">
+                                                    <rect key="frame" x="112" y="15" width="33" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+<<<<<<< HEAD
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
+=======
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+>>>>>>> slgraff/master
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>

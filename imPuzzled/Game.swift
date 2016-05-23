@@ -14,6 +14,7 @@ class Game: NSManagedObject,APIDataDelegate {
     
     private var gameReady: ((Game) -> Void)!
     private var options: gameOptions!
+    
     var apidata: APIData!
     
     //
@@ -24,10 +25,10 @@ class Game: NSManagedObject,APIDataDelegate {
         self.options = options
         
         width = findSetting("Width")
-        width = findSetting("Height")
-        width = findSetting("Words")
-        width = findSetting("Min Length")
-        width = findSetting("Max Length")
+        height = findSetting("Height")
+        wordCount = findSetting("Words")
+        minLength = findSetting("Min Length")
+        maxLength = findSetting("Max Length")
         
     }
     
@@ -51,7 +52,34 @@ class Game: NSManagedObject,APIDataDelegate {
     func startGame(whenReady: ((Game) -> Void)) {
         
         gameReady = whenReady
-        let url = "polar-savannah-54119.herokuapp.com/capabilities"
+        
+        var dict : [String:AnyObject] = [:]
+        
+        dict["width"] = Int(width)
+        dict["height"] = Int(height)
+        dict["words"] = Int(wordCount)
+        dict["minLength"] = Int(minLength)
+        dict["maxLength"] = Int(maxLength)
+        
+        var cap : [String] = []
+        for capability in options.capabilities {
+            
+            if capability["used"] as! Bool == true {
+                cap.append(capability["keyword"] as! String)
+            }
+        }
+        dict["capabilities"] = cap
+        
+        var jsonString: NSString = ""
+        do {
+            let data = try NSJSONSerialization.dataWithJSONObject(dict, options:[])
+            jsonString = NSString(data: data, encoding: NSUTF8StringEncoding)! as String
+        }
+        catch {
+        }
+
+        
+        let url = "polar-savannah-54119.herokuapp.com/capabilities" // + (jsonString as String)
         apidata = APIData(request: url, delegate: self)
         
     }
@@ -86,6 +114,8 @@ class Game: NSManagedObject,APIDataDelegate {
             words += [["word":"hi", "found": false]]
             words += [["word":"dog", "found": false]]
             words += [["word":"bye", "found": false]]
+            wordCount = 4
+            foundWordCount = 0
             self.words = words
             doSave()
             

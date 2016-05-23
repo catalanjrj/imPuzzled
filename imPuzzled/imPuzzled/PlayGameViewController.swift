@@ -32,6 +32,9 @@ class PlayGameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let tbvc = self.tabBarController as! PlayGameTabViewController
+        game = tbvc.game
+        
         buildLabels()
 
         
@@ -45,13 +48,22 @@ class PlayGameViewController: UIViewController {
         let chars = game.characters as! [String]
         var index = 0;
         
+        let sidePadding = 40.0
+        let topPadding = 80.0
+        let swidth = Double(self.view.frame.size.width)
+        let gwidth = Double(game.width)
+        let size = (swidth - sidePadding * 2) / gwidth
+        
         for row:Int in 0...game.height-1 {
             for col:Int in 0...game.width-1 {
-                let label = UILabel(frame: CGRectMake(CGFloat(col * 30) + 40, CGFloat(row * 30) + 80,
-                    20, 20))
+                let label = UILabel(frame: CGRectMake(CGFloat(Double(col) * size + sidePadding),
+                    CGFloat(Double(row) * size + topPadding),
+                    30, 30))
                 label.userInteractionEnabled = true
                 label.text = chars[index]
                 label.tag = index
+                label.textAlignment = .Center
+                label.backgroundColor = UIColor.lightGrayColor().colorWithAlphaComponent(0.1)
                 view.addSubview(label)
                 labels += [label]
                 index += 1
@@ -100,7 +112,8 @@ class PlayGameViewController: UIViewController {
                     //  two points yet or if the label is ok to select
                     //  (only good labels have a green color)
                     //
-                    if secondLabel == nil || label.textColor == availColor {
+                    if (secondLabel == nil || label.textColor == availColor)
+                    && label.textColor != wordColor {
                         label.textColor = selectedColor
                     }
                 }
@@ -126,8 +139,15 @@ class PlayGameViewController: UIViewController {
         firstLabel = nil
         secondLabel = nil
         
+        let attr:[String] = game.charactersAttr as! [String]
         for label in labels {
-            label.textColor = unselectedColor
+            if attr[label.tag] == "X" {
+                label.textColor = wordColor
+                label.font = UIFont.boldSystemFontOfSize(16.0)
+            }
+            else {
+                label.textColor = unselectedColor
+            }
         }
     }
 
@@ -170,7 +190,6 @@ class PlayGameViewController: UIViewController {
         else {
             
             let diagDif = abs(fPoint - sPoint)
-            print(diagDif)
             
             //
             //  find top of diag
@@ -178,21 +197,26 @@ class PlayGameViewController: UIViewController {
             var point = fPoint
             repeat {
                 if point - diagDif < 0 {break}
+                point -= diagDif
                 if rowCol(point).col == 0 {break}
                 if rowCol(point).col == game.width - 1 {break}
-                point -= diagDif
             } while true
-         
+          
             //
             //  mark each label on the diag
             //
+            var marks = 0
             while point < labels.count {
                 let label = labels[point]
                 if label.textColor == unselectedColor {
                     label.textColor = availColor
+                    marks += 1
+                }
+                if marks > 1 {
+                    if rowCol(point).col == 0 {break}
+                    if rowCol(point).col == game.width-1 {break}
                 }
                 point += diagDif
-                if rowCol(point).col == 0 {point = labels.count}
             }
         }
 
@@ -215,7 +239,85 @@ class PlayGameViewController: UIViewController {
     //
     func processWord() {
         
+        //
+        //  build word from selected labels
+        //
+        var pickedWord = ""
+        for label in labels {
+            if label.textColor == selectedColor {
+                pickedWord += label.text!
+            }
+        }
         
+        //
+        //  see if word is in list of available words
+        //
+        
+        var words:[[String: AnyObject]] = game.words as! [[String: AnyObject]]
+        
+        //
+        // try and find word in the dictionary
+        //
+        for var word in words {
+            if let fword:String = word["word"] as? String {
+                if fword == pickedWord || fword == String(pickedWord.characters.reverse()) {
+                    
+                    for index in 0...words.count-1 {
+                        if words[index]["word"] as? String == fword {
+                            words[index]["found"] = true as Bool
+                        }
+                    }
+        
+                    game.foundWordCount += 1
+                    
+                    //
+                    //  mark each selected cell as used
+                    //
+                    var attr:[String] = game.charactersAttr as! [String]
+                    for label in labels {
+                        if label.textColor == selectedColor {
+                            attr[label.tag] = "X"
+                            shakeAnimation(label)
+                        }
+                    }
+                    game.charactersAttr = attr
+                    game.words = words
+
+                    resetGrid()
+                    
+                    game.doSave()
+                    
+                    break
+                }
+            }
+        }
+        
+    }
+    
+    //
+    //  create a shake gesture
+    //
+    func shakeAnimation (label: UILabel) {
+        
+        let shake = CABasicAnimation(keyPath:"position")
+        shake.duration = 0.1
+        shake.repeatCount = 5
+        shake.autoreverses = true
+        shake.fromValue = NSValue(CGPoint:CGPointMake(label.center.x - 5, label.center.y))
+        shake.toValue = NSValue(CGPoint:CGPointMake(label.center.x + 5, label.center.y))
+        label.layer.addAnimation(shake, forKey: "position")
+        
+    }
+    
+    
+    //
+    //  user rotated so we need to redraw the screen
+    //
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
+     
+        view.subviews.forEach { $0.removeFromSuperview() }
+        
+        buildLabels()
         
     }
 

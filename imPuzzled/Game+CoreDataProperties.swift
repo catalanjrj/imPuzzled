@@ -26,5 +26,7 @@ extension Game {
     @NSManaged var wordCount: Int32
     @NSManaged var charactersAttr: NSObject?
     @NSManaged var score: Int32
+    @NSManaged var completed: Bool
+    @NSManaged var foundWordCount: Int32
 
 }

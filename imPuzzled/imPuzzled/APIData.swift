@@ -41,7 +41,7 @@ class APIData: NSObject,NSURLSessionDelegate {
         
         let url = NSURL.init(string: self.request!)
         let urlRequest: NSMutableURLRequest = NSMutableURLRequest(URL: url!)
-        let session = NSURLSession.sharedSession()
+        let session = NSURLSession(configuration: .defaultSessionConfiguration(), delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
         
         let task = session.dataTaskWithRequest(urlRequest) {
             (data, response, error) -> Void in
